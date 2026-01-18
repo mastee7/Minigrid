@@ -11,6 +11,46 @@ __version__ = "2.5.0"
 
 
 def register_minigrid_envs():
+
+    # LavaLawn
+    # ----------------------------------------
+    register(
+        id='MiniGrid-LavaLawnS16-v0',
+        entry_point='minigrid.envs:LavaLawnEnv',
+        kwargs={"size":16},
+    )
+    register(
+        id='MiniGrid-LavaLawnS64-v0',
+        entry_point='minigrid.envs:LavaLawnEnv',
+        kwargs={"size":64},
+    )
+
+    # LavaLawnAsphalt
+    # ----------------------------------------
+    register(
+        id='MiniGrid-LavaLawnAsphaltS16-v0',
+        entry_point='minigrid.envs.lavalawn_asphalt:LavaLawnAsphaltEnv',
+        kwargs={"size":16},
+    )
+    register(
+        id='MiniGrid-LavaLawnAsphaltS64-v0',
+        entry_point='minigrid.envs.lavalawn_asphalt:LavaLawnAsphaltEnv',
+        kwargs={"size":64},
+    )
+
+    # FixedLawnAsphalt
+    # ----------------------------------------
+    register(
+        id='MiniGrid-FixedLawnAsphaltS16-v0',
+        entry_point='minigrid.envs.lavalawn_asphalt:FixedLawnAsphaltEnv',
+        kwargs={"size":16},
+    )
+    register(
+        id='MiniGrid-FixedLawnAsphaltS64-v0',
+        entry_point='minigrid.envs.lavalawn_asphalt:FixedLawnAsphaltEnv',
+        kwargs={"size":64},
+    )
+
     # BlockedUnlockPickup
     # ----------------------------------------
 

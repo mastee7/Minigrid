@@ -25,6 +25,7 @@ Point = Tuple[int, int]
 
 
 class WorldObj:
+
     """
     Base class for grid world objects
     """
@@ -73,7 +74,7 @@ class WorldObj:
         obj_type = IDX_TO_OBJECT[type_idx]
         color = IDX_TO_COLOR[color_idx]
 
-        if obj_type == "empty" or obj_type == "unseen" or obj_type == "agent":
+        if obj_type == "empty" or obj_type == "unseen":
             return None
 
         # State, 0: open, 1: closed, 2: locked
@@ -96,6 +97,10 @@ class WorldObj:
             v = Goal()
         elif obj_type == "lava":
             v = Lava()
+        elif obj_type == "lawn":
+            v = Lawn(color)
+        elif obj_type == "asphalt":
+            v = Asphalt(color)
         else:
             assert False, "unknown object type in decode '%s'" % obj_type
 
@@ -107,8 +112,8 @@ class WorldObj:
 
 
 class Goal(WorldObj):
-    def __init__(self, color: str = "green"):
-        super().__init__("goal", color)
+    def __init__(self):
+        super().__init__("goal", "green")
 
     def can_overlap(self):
         return True
@@ -291,3 +296,24 @@ class Box(WorldObj):
         # Replace the box by its contents
         env.grid.set(pos[0], pos[1], self.contains)
         return True
+
+class Lawn(WorldObj):
+    def __init__(self, color='forest_green'):
+        super().__init__('lawn', color)
+
+    def can_overlap(self):
+        return True
+
+    def render(self, img):
+        fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS[self.color])
+
+
+class Asphalt(WorldObj):
+    def __init__(self, color='dark_grey'):
+        super().__init__('asphalt', color)
+
+    def can_overlap(self):
+        return True
+
+    def render(self, img):
+        fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS[self.color])
